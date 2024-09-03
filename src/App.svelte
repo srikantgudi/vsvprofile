@@ -1,47 +1,43 @@
 <script>
-  import svelteLogo from './assets/svelte.svg'
-  import viteLogo from '/vite.svg'
-  import Counter from './lib/Counter.svelte'
+  import About from "./lib/About.svelte";
+  import Skills from "./lib/Skills.svelte";
+  import Workhist from "./lib/Workhist.svelte";
+  
+  let currentTab = 0;
+  const comps = [
+		{ color: 'About me', component: About },
+		{ color: 'Technical Skills', component: Skills },
+		{ color: 'Work History', component: Workhist }
+	];
+  $: currentComp = comps[currentTab];
 </script>
 
-<main>
-  <div>
-    <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
-      <img src={viteLogo} class="logo" alt="Vite Logo" />
-    </a>
-    <a href="https://svelte.dev" target="_blank" rel="noreferrer">
-      <img src={svelteLogo} class="logo svelte" alt="Svelte Logo" />
-    </a>
-  </div>
-  <h1>Vite + Svelte</h1>
-
-  <div class="card">
-    <Counter />
-  </div>
-
-  <p>
-    Check out <a href="https://github.com/sveltejs/kit#readme" target="_blank" rel="noreferrer">SvelteKit</a>, the official Svelte app framework powered by Vite!
-  </p>
-
-  <p class="read-the-docs">
-    Click on the Vite and Svelte logos to learn more
-  </p>
-</main>
-
 <style>
-  .logo {
-    height: 6em;
-    padding: 1.5em;
-    will-change: filter;
-    transition: filter 300ms;
-  }
-  .logo:hover {
-    filter: drop-shadow(0 0 2em #646cffaa);
-  }
-  .logo.svelte:hover {
-    filter: drop-shadow(0 0 2em #ff3e00aa);
-  }
-  .read-the-docs {
-    color: #888;
-  }
 </style>
+
+<main class="">
+  <div class="container">
+    <div class="bg-dark text-white row d-flex align-items-center">
+      <div class="col-md-6 col-12">
+        <div class="d-flex gap-2 align-items-center">
+          <div class="display-6">Srikant Gudi</div>
+          <div>| Bengaluru, India</div>
+        </div>
+      </div>
+      <div class="col-md-6 col">
+        <button class="btn btn-sm btn-info" on:click={() => currentTab=0}>About me</button>
+        <button class="btn btn-sm btn-info" on:click={() => currentTab=1}>Technical Skills</button>
+        <button on:click={() => currentTab=2} class="btn btn-sm btn-info">Work Historry</button>
+      </div>
+    </div>
+    <div class="card p-2">
+      <div class="row">
+        <div class="col-12">
+          <div class="my-5">
+            <svelte:component this={currentComp.component} />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
